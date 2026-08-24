@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Fitxar Motospirit</title>
+  <meta name="theme-color" content="#111827" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="capçalera">
+      <h1>Fitxar Motospirit</h1>
+      <div id="usuari" class="usuari oculta">
+        <span id="usuari-nom"></span>
+        <button id="btn-logout" class="enllac">Tanca sessió</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="estat-ubicacio" class="targeta">
+        <p id="estat-text">Comprovant ubicació…</p>
+        <p id="estat-distancia" class="distancia"></p>
+      </section>
+
+      <section id="zona-login" class="targeta centrat">
+        <p>Per fitxar cal iniciar sessió amb el teu compte de Google.</p>
+        <button id="btn-login" class="boto boto-primari">Inicia sessió</button>
+      </section>
+
+      <section id="zona-fitxar" class="targeta centrat oculta">
+        <div class="botons-fitxar">
+          <button id="btn-entrada" class="boto boto-entrada" disabled>Fitxar Entrada</button>
+          <button id="btn-sortida" class="boto boto-sortida" disabled>Fitxar Sortida</button>
+        </div>
+        <p id="missatge" class="missatge"></p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Motospirit · Camí de les Parellades, 1, Olesa de Montserrat</p>
+    </footer>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));
+    }
+  </script>
+</body>
+</html>
