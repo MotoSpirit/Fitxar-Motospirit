@@ -123,6 +123,22 @@ usuaris de prova que heu afegit vosaltres mateixos.
 - No hi ha servidor propi a mantenir: el mòbil parla amb Google (login) i amb l'Apps Script
   (per desar el fitxatge), tots dos gratuïts.
 
+## Resum setmanal (compliment de normativa)
+
+Cada cop que algú fitxa, l'Apps Script recalcula automàticament una pestanya nova
+**"Resum Setmanal"** (es crea sola, no cal fer-la a mà): una graella amb un treballador per
+fila i una setmana per columna. Cada cel·la mostra:
+
+- **✅** — setmana complerta (mínim 10 h entre setmana + 4 h el cap de setmana)
+- **❌** — setmana ja acabada i no complerta
+- **⏳** — setmana en curs, encara no complerta (pot arribar-hi abans que acabi)
+- seguit de les hores fetes, per exemple `✅ 11.5h+4.5h` (entre setmana + cap de setmana)
+
+Es calcula aparellant cada "Entrada" amb la següent "Sortida" de la mateixa persona. Els
+llindars (10 h / 4 h) es poden canviar a `apps-script/Codi.gs`, constants
+`HORES_MINIM_ENTRE_SETMANA` i `HORES_MINIM_CAP_SETMANA` — recorda desplegar una "Nova
+versió" després de tocar el codi (pas 2, nota final).
+
 ## Com afegir o treure treballadors
 
 - **Afegir-ne un**: al projecte de Google Cloud (pas 1.3, secció "Públic" / "Usuarios de
