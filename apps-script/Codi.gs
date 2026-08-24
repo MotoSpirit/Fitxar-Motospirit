@@ -177,15 +177,38 @@ function etiquetaSetmana_(data) {
   return `${Utilities.formatDate(inici, tz, "dd/MM")} - ${Utilities.formatDate(fi, tz, "dd/MM/yyyy")}`;
 }
 
-// Combina les columnes de text "Data" (format ca-ES, p.ex. "25/8/2026") i "Hora"
-// (p.ex. "10:05:23") en un objecte Date real.
-function combinaDataIHora_(dataText, horaText) {
-  const partsData = String(dataText).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  const partsHora = String(horaText).trim().match(/^(\d{1,2}):(\d{2}):(\d{2})$/);
-  if (!partsData || !partsHora) return null;
-  const [, dia, mes, any] = partsData.map(Number);
-  const [, hora, min, seg] = partsHora.map(Number);
-  return new Date(any, mes - 1, dia, hora, min, seg);
+// Combina les columnes "Data" i "Hora" en un objecte Date real. El full de càlcul sol
+// convertir automàticament aquestes columnes a tipus data/hora natius (per això surten
+// alineades a la dreta), en aquest cas getValues() ja retorna objectes Date; però també
+// acceptem que arribin com a text (p.ex. si algú les ha escrit a mà), per si de cas.
+function combinaDataIHora_(dataVal, horaVal) {
+  const data = obteDataObjecte_(dataVal);
+  const hora = obteHoraObjecte_(horaVal);
+  if (!data || !hora) return null;
+  return new Date(
+    data.getFullYear(),
+    data.getMonth(),
+    data.getDate(),
+    hora.getHours(),
+    hora.getMinutes(),
+    hora.getSeconds()
+  );
+}
+
+function obteDataObjecte_(valor) {
+  if (valor instanceof Date) return valor;
+  const parts = String(valor).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (!parts) return null;
+  const [, dia, mes, any] = parts.map(Number);
+  return new Date(any, mes - 1, dia);
+}
+
+function obteHoraObjecte_(valor) {
+  if (valor instanceof Date) return valor;
+  const parts = String(valor).trim().match(/^(\d{1,2}):(\d{2}):(\d{2})$/);
+  if (!parts) return null;
+  const [, h, m, s] = parts.map(Number);
+  return new Date(1899, 11, 30, h, m, s);
 }
 
 function escriuResum_(llibre, graella) {
